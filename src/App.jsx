@@ -23,10 +23,23 @@ function App() {
   }
   const [soData, setSoData] = useState([])  
   const HelloFromGo = async () => {
-    const response = await fetch("http://localhost:8000/so-da")
-    const soRespData = await response.json()
-    console.log(soRespData)
-    setSoData(soRespData)
+    //const response = await fetch("http://localhost:8000/so-da")
+    //const soRespData = await response.json()
+    //console.log(soRespData)
+    //setSoData(soRespData)
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+         "parameter1": parameter1,
+         "parameter2": parameter2,
+         "parameter3": parameter3
+        })
+    };
+    fetch('http://localhost:8000/so-da/', requestOptions)
+      .then(response => response.json())
+      .then(data => setSoData(data));    
   }  
   
   return (
