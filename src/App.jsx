@@ -5,15 +5,14 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [parameter1, setParameter1] = useState("")
-  const [parameter2, setParameter2] = useState("")
+  const [country, setCountry] = useState("")
+  const [languageHaveWorkedWith, setLanguageHaveWorkedWith] = useState("")
   const [parameter3, setParameter3] = useState("")
-  const handleChange1 = (event) =>{
-    setParameter1(event.target.value);
+  const handleCountry = (event) =>{
+    setCountry(event.target.value);
   }
-  const handleChange2 = (event) =>{
-    setParameter2(event.target.value);
+  const handleLanguageHaveWorkedWith = (event) =>{
+    setLanguageHaveWorkedWith(event.target.value);
   }
   const handleChange3 = (event) =>{
     setParameter3(event.target.value);
@@ -32,8 +31,8 @@ function App() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-         "parameter1": parameter1,
-         "parameter2": parameter2,
+         "country": country,
+         "languageHaveWorkedWith": languageHaveWorkedWith,
          "parameter3": parameter3
         })
     };
@@ -45,13 +44,13 @@ function App() {
   return (
     <>
       <div className='input-fields'>
-        <Input className="parameter" id="parameter1" placeholder="Input parameter1" onChange={handleChange1}/>
-        <Input className="parameter" id="parameter2" placeholder="Input parameter2" onChange={handleChange2}/>
+        <Input className="parameter" placeholder="Country" onChange={handleCountry}/>
+        <Input className="parameter" placeholder="LanguageHaveWorkedWith" onChange={handleLanguageHaveWorkedWith}/>
         <Input className="parameter" id="parameter3" placeholder="Input parameter3" onChange={handleChange3}/>
         <Button type="primary" onClick={handleBtnGetData}>Get data</Button>             
       </div>  
-      <p>Parameter1: {parameter1}</p>
-      <p>Parameter2: {parameter2}</p>
+      <p>Parameter1: {country}</p>
+      <p>Parameter2: {languageHaveWorkedWith}</p>
       <p>Parameter3: {parameter3}</p>
       <p>Data: {JSON.stringify(soData)}</p>      
     </>
