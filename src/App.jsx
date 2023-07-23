@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Input, Button, Select } from 'antd';
 import './App.css'
+import { useSelector, useDispatch } from "react-redux";
+import { addRequest } from "./store/actions/requestAction";
 
 function App() {
 
+  const state = useSelector((state) => state);
+  console.log("store", state);
+  const dispatch = useDispatch(); 
   useEffect(() => fetchCountryList, [])
   useEffect(() => fetchLanguageHaveWorkedWithList, [])    
   const [country, setCountry] = useState("")
@@ -21,6 +26,7 @@ function App() {
     setParameter3(event.target.value);
   }
   const handleBtnGetData = (event) => {
+    dispatch(addRequest());
     postSelectFromDF();
   }
   const [soData, setSoData] = useState([])
@@ -78,6 +84,7 @@ function App() {
       <p>Parameter2: {languageHaveWorkedWith}</p>
       <p>Parameter3: {parameter3}</p>
       <p>Data: {JSON.stringify(soData)}</p>
+      <p>From redux store: {state.query.numOfQueries}</p>      
     </>
   )
 }
