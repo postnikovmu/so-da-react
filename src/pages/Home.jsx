@@ -10,10 +10,13 @@ function Home() {
     const dispatch = useDispatch();
     useEffect(() => fetchCountryList, [])
     useEffect(() => fetchLanguageHaveWorkedWithList, [])
+    useEffect(() => fetchWebframeHaveWorkedWithList, [])    
     const [country, setCountry] = useState("")
     const [countriesOptions, setCountriesOptions] = useState("")
     const [languageHaveWorkedWith, setLanguageHaveWorkedWith] = useState("")
     const [languageHaveWorkedWithOptions, setLanguageHaveWorkedWithOptions] = useState("")
+    const [webframeHaveWorkedWith, setWebframeHaveWorkedWith] = useState("")
+    const [webframeHaveWorkedWithOptions, setWebframeHaveWorkedWithOptions] = useState("")    
     const [parameter3, setParameter3] = useState("")
     const handleCountry = (event) => {
         setCountry(event);
@@ -21,6 +24,9 @@ function Home() {
     const handleLanguageHaveWorkedWith = (event) => {
         setLanguageHaveWorkedWith(event);
     }
+    const handleWebframeHaveWorkedWith = (event) => {
+        setWebframeHaveWorkedWith(event);
+    }    
     const handleChange3 = (event) => {
         setParameter3(event.target.value);
     }
@@ -36,6 +42,7 @@ function Home() {
             body: JSON.stringify({
                 "country": country,
                 "languageHaveWorkedWith": languageHaveWorkedWith,
+                "webframeHaveWorkedWith": webframeHaveWorkedWith,
                 "parameter3": parameter3
             })
         };
@@ -56,6 +63,12 @@ function Home() {
         const languages = soRespData.languagehaveworkedwith
         setLanguageHaveWorkedWithOptions(languages.map((language) => ({ label: language, value: language, })))
     }
+    async function fetchWebframeHaveWorkedWithList() {
+        const response = await fetch("http://localhost:8000/webframehaveworkedwith/")
+        const soRespData = await response.json()
+        const webframes = soRespData.webframehaveworkedwith
+        setWebframeHaveWorkedWithOptions(webframes.map((webframe) => ({ label: webframe, value: webframe, })))
+    }
     return (
         <>
             <div className='input-fields'>
@@ -72,6 +85,13 @@ function Home() {
                     style={{ width: 500 }}
                     placeholder="LanguageHaveWorkedWith"
                     onChange={handleLanguageHaveWorkedWith}
+                />
+                <Select
+                    defaultValue=""
+                    options={webframeHaveWorkedWithOptions}
+                    style={{ width: 500 }}
+                    placeholder="WebframeHaveWorkedWith"
+                    onChange={handleWebframeHaveWorkedWith}
                 />
 
                 <Input className="parameter" id="parameter3" placeholder="Input parameter3" onChange={handleChange3} />
